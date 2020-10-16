@@ -1,3 +1,4 @@
+import 'package:chat_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -11,7 +12,10 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
+  AuthService authService = new AuthService();
   bool _isPasswordHidden = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +45,11 @@ class _SignInState extends State<SignIn> {
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
                 decoration: InputDecoration(
-                    labelText: 'Email', hintText: '', border: InputBorder.none),
+                  labelText: 'Email',
+                  hintText: '',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                ),
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Email can\'t be empty';
@@ -57,8 +65,10 @@ class _SignInState extends State<SignIn> {
                 keyboardType: TextInputType.text,
                 obscureText: _isPasswordHidden,
                 decoration: InputDecoration(
+                  labelText: 'Password',
                   hintText: '',
-                  border: InputBorder.none,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
                   suffixIcon: IconButton(
                     icon: Icon(_isPasswordHidden
                         ? Icons.visibility
@@ -126,9 +136,9 @@ class _SignInState extends State<SignIn> {
                     child: Text(
                       "Register now",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          decoration: TextDecoration.underline),
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                   SizedBox(
